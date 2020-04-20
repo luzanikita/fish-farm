@@ -2,7 +2,7 @@
 
 
 [[projects]]
-  digest = "1:66daedc9820c8e9b54bf9398bb1cc6527533b372422a9b8f8e843f5dc60e1c19"
+  digest = "1:2af97239e7c8b9e91668a9db6b5fd05b112c71da76e08b6288083a55f4745600"
   name = "github.com/astaxie/beego"
   packages = [
     ".",
@@ -11,6 +11,7 @@
     "context/param",
     "grace",
     "logs",
+    "orm",
     "session",
     "toolbox",
     "utils",
@@ -34,6 +35,18 @@
   pruneopts = "UT"
   revision = "b4936e06046bbecbb94cae9c18127ebe510a2cb9"
   version = "v4.20"
+
+[[projects]]
+  digest = "1:9ff22c26414baf7deaf74f2a788fe7b97666048bcbe346c52cfe823442abbdfb"
+  name = "github.com/lib/pq"
+  packages = [
+    ".",
+    "oid",
+    "scram",
+  ]
+  pruneopts = "UT"
+  revision = "99274577be97ac9b1d95a2d61d566dc9b7cc6a54"
+  version = "v1.3.0"
 
 [[projects]]
   branch = "master"
@@ -91,6 +104,8 @@
   analyzer-version = 1
   input-imports = [
     "github.com/astaxie/beego",
+    "github.com/astaxie/beego/orm",
+    "github.com/lib/pq",
     "github.com/smartystreets/goconvey/convey",
   ]
   solver-name = "gps-cdcl"
