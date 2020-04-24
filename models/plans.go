@@ -5,46 +5,44 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
-type Farms struct {
-	Id           int       `orm:"column(id);pk"`
-	UserId       *Users    `orm:"column(user_id);rel(fk)"`
-	Name         string    `orm:"column(name)"`
-	Description  string    `orm:"column(description);null"`
-	CreationDate time.Time `orm:"column(creation_date);type(timestamp without time zone)"`
+type Plans struct {
+	Id          int    `orm:"column(id);pk"`
+	UserId      *Users `orm:"column(user_id);rel(fk)"`
+	Name        string `orm:"column(name)"`
+	Description string `orm:"column(description);null"`
 }
 
-func (t *Farms) TableName() string {
-	return "farms"
+func (t *Plans) TableName() string {
+	return "plans"
 }
 
 func init() {
-	orm.RegisterModel(new(Farms))
+	orm.RegisterModel(new(Plans))
 }
 
-func AddFarms(m *Farms) (id int64, err error) {
+func AddPlans(m *Plans) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-func GetFarmsById(id int) (v *Farms, err error) {
+func GetPlansById(id int) (v *Plans, err error) {
 	o := orm.NewOrm()
-	v = &Farms{Id: id}
+	v = &Plans{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-func GetAllFarms(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllPlans(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Farms))
+	qs := o.QueryTable(new(Plans))
 
 	for k, v := range query {
 
@@ -94,7 +92,7 @@ func GetAllFarms(query map[string]string, fields []string, sortby []string, orde
 		}
 	}
 
-	var l []Farms
+	var l []Plans
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -117,9 +115,9 @@ func GetAllFarms(query map[string]string, fields []string, sortby []string, orde
 	return nil, err
 }
 
-func UpdateFarmsById(m *Farms) (err error) {
+func UpdatePlansById(m *Plans) (err error) {
 	o := orm.NewOrm()
-	v := Farms{Id: m.Id}
+	v := Plans{Id: m.Id}
 
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -130,13 +128,13 @@ func UpdateFarmsById(m *Farms) (err error) {
 	return
 }
 
-func DeleteFarms(id int) (err error) {
+func DeletePlans(id int) (err error) {
 	o := orm.NewOrm()
-	v := Farms{Id: id}
+	v := Plans{Id: id}
 
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Farms{Id: id}); err == nil {
+		if num, err = o.Delete(&Plans{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

@@ -26,16 +26,12 @@ func init() {
 	orm.RegisterModel(new(Users))
 }
 
-// AddUsers insert a new Users into database and returns
-// last inserted Id on success.
 func AddUsers(m *Users) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetUsersById retrieves Users by Id. Returns error if
-// Id doesn't exist
 func GetUsersById(id int) (v *Users, err error) {
 	o := orm.NewOrm()
 	v = &Users{Id: id}
@@ -45,15 +41,13 @@ func GetUsersById(id int) (v *Users, err error) {
 	return nil, err
 }
 
-// GetAllUsers retrieves all Users matches certain condition. Returns empty list if
-// no records exist
 func GetAllUsers(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
 	qs := o.QueryTable(new(Users))
-	// query k=v
+
 	for k, v := range query {
-		// rewrite dot-notation to Object__Attribute
+
 		k = strings.Replace(k, ".", "__", -1)
 		if strings.Contains(k, "isnull") {
 			qs = qs.Filter(k, (v == "true" || v == "1"))
@@ -61,11 +55,11 @@ func GetAllUsers(query map[string]string, fields []string, sortby []string, orde
 			qs = qs.Filter(k, v)
 		}
 	}
-	// order by:
+
 	var sortFields []string
 	if len(sortby) != 0 {
 		if len(sortby) == len(order) {
-			// 1) for each sort field, there is an associated order
+
 			for i, v := range sortby {
 				orderby := ""
 				if order[i] == "desc" {
@@ -79,7 +73,7 @@ func GetAllUsers(query map[string]string, fields []string, sortby []string, orde
 			}
 			qs = qs.OrderBy(sortFields...)
 		} else if len(sortby) != len(order) && len(order) == 1 {
-			// 2) there is exactly one order, all the sorted fields will be sorted by this order
+
 			for _, v := range sortby {
 				orderby := ""
 				if order[0] == "desc" {
@@ -108,7 +102,7 @@ func GetAllUsers(query map[string]string, fields []string, sortby []string, orde
 				ml = append(ml, v)
 			}
 		} else {
-			// trim unused fields
+
 			for _, v := range l {
 				m := make(map[string]interface{})
 				val := reflect.ValueOf(v)
@@ -123,12 +117,10 @@ func GetAllUsers(query map[string]string, fields []string, sortby []string, orde
 	return nil, err
 }
 
-// UpdateUsers updates Users by Id and returns error if
-// the record to be updated doesn't exist
 func UpdateUsersById(m *Users) (err error) {
 	o := orm.NewOrm()
 	v := Users{Id: m.Id}
-	// ascertain id exists in the database
+
 	if err = o.Read(&v); err == nil {
 		var num int64
 		if num, err = o.Update(m); err == nil {
@@ -138,12 +130,10 @@ func UpdateUsersById(m *Users) (err error) {
 	return
 }
 
-// DeleteUsers deletes Users by Id and returns error if
-// the record to be deleted doesn't exist
 func DeleteUsers(id int) (err error) {
 	o := orm.NewOrm()
 	v := Users{Id: id}
-	// ascertain id exists in the database
+
 	if err = o.Read(&v); err == nil {
 		var num int64
 		if num, err = o.Delete(&Users{Id: id}); err == nil {

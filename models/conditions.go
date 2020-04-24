@@ -10,41 +10,41 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type Farms struct {
-	Id           int       `orm:"column(id);pk"`
-	UserId       *Users    `orm:"column(user_id);rel(fk)"`
-	Name         string    `orm:"column(name)"`
-	Description  string    `orm:"column(description);null"`
-	CreationDate time.Time `orm:"column(creation_date);type(timestamp without time zone)"`
+type Conditions struct {
+	Id       int       `orm:"column(id);pk"`
+	FarmId   *Farms    `orm:"column(farm_id);rel(fk)"`
+	MetricId *Metrics  `orm:"column(metric_id);rel(fk)"`
+	Value    float64   `orm:"column(value);null"`
+	Date     time.Time `orm:"column(date);type(timestamp without time zone)"`
 }
 
-func (t *Farms) TableName() string {
-	return "farms"
+func (t *Conditions) TableName() string {
+	return "conditions"
 }
 
 func init() {
-	orm.RegisterModel(new(Farms))
+	orm.RegisterModel(new(Conditions))
 }
 
-func AddFarms(m *Farms) (id int64, err error) {
+func AddConditions(m *Conditions) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-func GetFarmsById(id int) (v *Farms, err error) {
+func GetConditionsById(id int) (v *Conditions, err error) {
 	o := orm.NewOrm()
-	v = &Farms{Id: id}
+	v = &Conditions{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-func GetAllFarms(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllConditions(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Farms))
+	qs := o.QueryTable(new(Conditions))
 
 	for k, v := range query {
 
@@ -94,7 +94,7 @@ func GetAllFarms(query map[string]string, fields []string, sortby []string, orde
 		}
 	}
 
-	var l []Farms
+	var l []Conditions
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -117,9 +117,9 @@ func GetAllFarms(query map[string]string, fields []string, sortby []string, orde
 	return nil, err
 }
 
-func UpdateFarmsById(m *Farms) (err error) {
+func UpdateConditionsById(m *Conditions) (err error) {
 	o := orm.NewOrm()
-	v := Farms{Id: m.Id}
+	v := Conditions{Id: m.Id}
 
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -130,13 +130,13 @@ func UpdateFarmsById(m *Farms) (err error) {
 	return
 }
 
-func DeleteFarms(id int) (err error) {
+func DeleteConditions(id int) (err error) {
 	o := orm.NewOrm()
-	v := Farms{Id: id}
+	v := Conditions{Id: id}
 
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Farms{Id: id}); err == nil {
+		if num, err = o.Delete(&Conditions{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

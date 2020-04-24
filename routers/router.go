@@ -27,6 +27,36 @@ func init() {
 				&controllers.FarmsController{},
 			),
 		),
+
+		beego.NSNamespace("/plans",
+			beego.NSInclude(
+				&controllers.PlansController{},
+			),
+		),
+
+		beego.NSNamespace("/conditions",
+			beego.NSInclude(
+				&controllers.ConditionsController{},
+			),
+		),
+
+		beego.NSNamespace("/metrics",
+			beego.NSInclude(
+				&controllers.MetricsController{},
+			),
+		),
+
+		beego.NSNamespace("/requirements",
+			beego.NSInclude(
+				&controllers.RequirementsController{},
+			),
+		),
+
+		beego.NSNamespace("/products",
+			beego.NSInclude(
+				&controllers.ProductsController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
