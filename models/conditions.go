@@ -44,7 +44,7 @@ func GetConditionsById(id int) (v *Conditions, err error) {
 func GetAllConditions(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Conditions))
+	qs := o.QueryTable("Conditions").RelatedSel("MetricId")
 
 	for k, v := range query {
 

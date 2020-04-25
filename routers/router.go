@@ -26,6 +26,9 @@ func init() {
 			beego.NSInclude(
 				&controllers.FarmsController{},
 			),
+			beego.NSRouter("/:id/stats",
+				&controllers.FarmsController{}, "get:GetStats",
+			),
 		),
 
 		beego.NSNamespace("/plans",

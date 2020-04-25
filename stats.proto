@@ -1,0 +1,15 @@
+syntax = "proto3";
+package stats;
+option go_package = ".;stats";
+
+service StatsService {
+  rpc GetStats (StatsRequest) returns (StatsResponse) {}
+}
+
+message StatsRequest {
+  string text = 1;
+}
+
+message StatsResponse {
+  string text = 1;
+}

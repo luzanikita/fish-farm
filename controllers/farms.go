@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/nigi4/fish-farm/models"
+	"github.com/nigi4/fish-farm/stats"
 	"strconv"
 	"strings"
 
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
 )
 
 // FarmsController operations for Farms
@@ -168,4 +170,44 @@ func (c *FarmsController) Delete() {
 		c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
+}
+
+func (c *FarmsController) GetStats() {
+	var fields []string
+	var sortby []string
+	var order []string
+	var query = make(map[string]string)
+	var limit int64 = 10
+	var offset int64
+
+	idStr := c.Ctx.Input.Param(":id")
+	query["FarmId"] = idStr
+
+	sortby = append(sortby, "Date")
+	order = append(order, "asc")
+
+	l, err := models.GetAllConditions(query, fields, sortby, order, offset, limit)
+	
+	RequestStats(l)
+
+	if err != nil {
+		c.Data["json"] = err.Error()
+	} else {
+		c.Data["json"] = l
+	}
+	c.ServeJSON()
+}
+
+func RequestStats(l []interface{}) {
+	client, _ := stats.InitGrpcConnection()
+
+	var cond []models.Conditions
+	for i := range l {
+		x := l[i].(models.Conditions)
+		cond = append(cond, x)
+
+		text := x.MetricId.Name
+		out, _ := client.MyStats(text)
+		logs.Info("Output:\n%v %v", text, out)	
+	}
 }
