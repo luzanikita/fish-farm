@@ -9,6 +9,7 @@ package routers
 
 import (
 	"github.com/nigi4/fish-farm/controllers"
+	"github.com/nigi4/fish-farm/handlers"
 
 	"github.com/astaxie/beego"
 )
@@ -16,6 +17,20 @@ import (
 func init() {
 	ns := beego.NewNamespace("/v1",
 
+		beego.NSNamespace("/jwt",
+			beego.NSInclude(
+				&controllers.JWTController{},
+			),
+		),
+
+		beego.NSBefore(handlers.Jwt),
+		
+		beego.NSNamespace("/access",
+			beego.NSInclude(
+				&controllers.AccessController{},
+			),
+		),
+		
 		beego.NSNamespace("/users",
 			beego.NSInclude(
 				&controllers.UsersController{},

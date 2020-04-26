@@ -7,6 +7,24 @@ import (
 
 func init() {
 
+    beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:AccessController"] = append(beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:AccessController"],
+        beego.ControllerComments{
+            Method: "Post",
+            Router: `/`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:AccessController"] = append(beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:AccessController"],
+        beego.ControllerComments{
+            Method: "GetAll",
+            Router: `/`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
     beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:ConditionsController"] = append(beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:ConditionsController"],
         beego.ControllerComments{
             Method: "Post",
@@ -93,6 +111,15 @@ func init() {
             Method: "Delete",
             Router: `/:id`,
             AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:JWTController"] = append(beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:JWTController"],
+        beego.ControllerComments{
+            Method: "Post",
+            Router: `/`,
+            AllowHTTPMethods: []string{"post"},
             MethodParams: param.Make(),
             Filters: nil,
             Params: nil})
