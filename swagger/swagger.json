@@ -361,6 +361,35 @@
                 }
             }
         },
+        "/farms/{id}/stats": {
+            "get": {
+                "tags": [
+                    "farms"
+                ],
+                "description": "get statistics for each metric on farm",
+                "operationId": "FarmsController.GetStats",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Id of farm you want to analyse",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Farms"
+                        }
+                    },
+                    "404": {
+                        "description": "id is empty"
+                    }
+                }
+            }
+        },
         "/metrics/": {
             "get": {
                 "tags": [
@@ -880,179 +909,6 @@
                 }
             }
         },
-        "/requirements/": {
-            "get": {
-                "tags": [
-                    "requirements"
-                ],
-                "description": "get Requirements",
-                "operationId": "RequirementsController.Get All",
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "query",
-                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "fields",
-                        "description": "Fields returned. e.g. col1,col2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "sortby",
-                        "description": "Sorted-by fields. e.g. col1,col2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "order",
-                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "limit",
-                        "description": "Limit the size of result set. Must be an integer",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "offset",
-                        "description": "Start position of result set. Must be an integer",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/models.Requirements"
-                        }
-                    },
-                    "403": {
-                        "description": ""
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "requirements"
-                ],
-                "description": "create Requirements",
-                "operationId": "RequirementsController.Post",
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "body for Requirements content",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.Requirements"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "{int} models.Requirements"
-                    },
-                    "403": {
-                        "description": "body is empty"
-                    }
-                }
-            }
-        },
-        "/requirements/{id}": {
-            "get": {
-                "tags": [
-                    "requirements"
-                ],
-                "description": "get Requirements by id",
-                "operationId": "RequirementsController.Get One",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "description": "The key for staticblock",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/models.Requirements"
-                        }
-                    },
-                    "403": {
-                        "description": ":id is empty"
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "requirements"
-                ],
-                "description": "update the Requirements",
-                "operationId": "RequirementsController.Put",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "description": "The id you want to update",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "body for Requirements content",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.Requirements"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/models.Requirements"
-                        }
-                    },
-                    "403": {
-                        "description": ":id is not int"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "requirements"
-                ],
-                "description": "delete the Requirements",
-                "operationId": "RequirementsController.Delete",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "description": "The id you want to delete",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{string} delete success!"
-                    },
-                    "403": {
-                        "description": "id is empty"
-                    }
-                }
-            }
-        },
         "/users/": {
             "get": {
                 "tags": [
@@ -1344,35 +1200,6 @@
                 }
             }
         },
-        "models.Requirements": {
-            "title": "Requirements",
-            "type": "object",
-            "properties": {
-                "Description": {
-                    "type": "string"
-                },
-                "Id": {
-                    "type": "integer",
-                    "format": "int64"
-                },
-                "MetricCondition": {
-                    "type": "string"
-                },
-                "MetricId": {
-                    "$ref": "#/definitions/models.Metrics"
-                },
-                "MetricValue": {
-                    "type": "number",
-                    "format": "double"
-                },
-                "Name": {
-                    "type": "string"
-                },
-                "PlanId": {
-                    "$ref": "#/definitions/models.Plans"
-                }
-            }
-        },
         "models.Users": {
             "title": "Users",
             "type": "object",
@@ -1419,10 +1246,6 @@
         {
             "name": "metrics",
             "description": "MetricsController operations for Metrics\n"
-        },
-        {
-            "name": "requirements",
-            "description": "RequirementsController operations for Requirements\n"
         },
         {
             "name": "products",

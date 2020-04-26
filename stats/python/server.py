@@ -1,25 +1,41 @@
 import time
 from concurrent import futures
 
-from stats_pb2 import *
-from stats_pb2_grpc import *
+from stats_pb2 import (
+	ConditionsStatsResponse,
+	ProductsStatsResponse,
+	Condition
+)
+from stats_pb2_grpc import (
+	StatsServiceServicer,
+	add_StatsServiceServicer_to_server,
+	grpc
+)
+from processor import ConditionsStatsProcessor
+
+
+PORT = 6000
 
 
 class PyStatsService(StatsServiceServicer):
 
-	def GetStats(self, request, context):
-		# Text we got from the client
-		text = request.text
+	def GetConditionsStats(self, request, context):
+		response = ConditionsStatsResponse()
 
-		response = StatsResponse()
-		response.text = text + "_!"
+		conditions_proc = ConditionsStatsProcessor()
+		response.results.extend(
+			conditions_proc.process(request.conditions)
+		)
 
 		return response
+
 
 def serve(port):
 	server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
 	add_StatsServiceServicer_to_server(
-		PyStatsService(), server)
+		PyStatsService(),
+		server
+	)
 	server.add_insecure_port('[::]:' + str(port))
 	server.start()
 	print("Listening on port {}..".format(port))
@@ -31,4 +47,4 @@ def serve(port):
 
 
 if __name__== "__main__":
-	serve(6000)
+	serve(PORT)

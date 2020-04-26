@@ -97,6 +97,15 @@ func init() {
             Filters: nil,
             Params: nil})
 
+    beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:FarmsController"] = append(beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:FarmsController"],
+        beego.ControllerComments{
+            Method: "GetStats",
+            Router: `/:id/stats`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
     beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:MetricsController"] = append(beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:MetricsController"],
         beego.ControllerComments{
             Method: "Post",
@@ -224,51 +233,6 @@ func init() {
             Params: nil})
 
     beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:ProductsController"] = append(beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:ProductsController"],
-        beego.ControllerComments{
-            Method: "Delete",
-            Router: `/:id`,
-            AllowHTTPMethods: []string{"delete"},
-            MethodParams: param.Make(),
-            Filters: nil,
-            Params: nil})
-
-    beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:RequirementsController"] = append(beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:RequirementsController"],
-        beego.ControllerComments{
-            Method: "Post",
-            Router: `/`,
-            AllowHTTPMethods: []string{"post"},
-            MethodParams: param.Make(),
-            Filters: nil,
-            Params: nil})
-
-    beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:RequirementsController"] = append(beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:RequirementsController"],
-        beego.ControllerComments{
-            Method: "GetAll",
-            Router: `/`,
-            AllowHTTPMethods: []string{"get"},
-            MethodParams: param.Make(),
-            Filters: nil,
-            Params: nil})
-
-    beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:RequirementsController"] = append(beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:RequirementsController"],
-        beego.ControllerComments{
-            Method: "GetOne",
-            Router: `/:id`,
-            AllowHTTPMethods: []string{"get"},
-            MethodParams: param.Make(),
-            Filters: nil,
-            Params: nil})
-
-    beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:RequirementsController"] = append(beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:RequirementsController"],
-        beego.ControllerComments{
-            Method: "Put",
-            Router: `/:id`,
-            AllowHTTPMethods: []string{"put"},
-            MethodParams: param.Make(),
-            Filters: nil,
-            Params: nil})
-
-    beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:RequirementsController"] = append(beego.GlobalControllerRouter["github.com/nigi4/fish-farm/controllers:RequirementsController"],
         beego.ControllerComments{
             Method: "Delete",
             Router: `/:id`,

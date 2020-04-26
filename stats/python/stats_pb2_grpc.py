@@ -13,17 +13,28 @@ class StatsServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetStats = channel.unary_unary(
-                '/stats.StatsService/GetStats',
-                request_serializer=stats__pb2.StatsRequest.SerializeToString,
-                response_deserializer=stats__pb2.StatsResponse.FromString,
+        self.GetConditionsStats = channel.unary_unary(
+                '/stats.StatsService/GetConditionsStats',
+                request_serializer=stats__pb2.ConditionsStatsRequest.SerializeToString,
+                response_deserializer=stats__pb2.ConditionsStatsResponse.FromString,
+                )
+        self.GetProductsStats = channel.unary_unary(
+                '/stats.StatsService/GetProductsStats',
+                request_serializer=stats__pb2.ProductsStatsRequest.SerializeToString,
+                response_deserializer=stats__pb2.ProductsStatsResponse.FromString,
                 )
 
 
 class StatsServiceServicer(object):
     """Missing associated documentation comment in .proto file"""
 
-    def GetStats(self, request, context):
+    def GetConditionsStats(self, request, context):
+        """Missing associated documentation comment in .proto file"""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetProductsStats(self, request, context):
         """Missing associated documentation comment in .proto file"""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -32,10 +43,15 @@ class StatsServiceServicer(object):
 
 def add_StatsServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetStats': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetStats,
-                    request_deserializer=stats__pb2.StatsRequest.FromString,
-                    response_serializer=stats__pb2.StatsResponse.SerializeToString,
+            'GetConditionsStats': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetConditionsStats,
+                    request_deserializer=stats__pb2.ConditionsStatsRequest.FromString,
+                    response_serializer=stats__pb2.ConditionsStatsResponse.SerializeToString,
+            ),
+            'GetProductsStats': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetProductsStats,
+                    request_deserializer=stats__pb2.ProductsStatsRequest.FromString,
+                    response_serializer=stats__pb2.ProductsStatsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -48,7 +64,7 @@ class StatsService(object):
     """Missing associated documentation comment in .proto file"""
 
     @staticmethod
-    def GetStats(request,
+    def GetConditionsStats(request,
             target,
             options=(),
             channel_credentials=None,
@@ -57,8 +73,24 @@ class StatsService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/stats.StatsService/GetStats',
-            stats__pb2.StatsRequest.SerializeToString,
-            stats__pb2.StatsResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/stats.StatsService/GetConditionsStats',
+            stats__pb2.ConditionsStatsRequest.SerializeToString,
+            stats__pb2.ConditionsStatsResponse.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetProductsStats(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/stats.StatsService/GetProductsStats',
+            stats__pb2.ProductsStatsRequest.SerializeToString,
+            stats__pb2.ProductsStatsResponse.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)

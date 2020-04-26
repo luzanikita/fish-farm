@@ -22,15 +22,15 @@ func InitGrpcConnection() (*GrpcClient, error) {
 	return &GrpcClient{conn, client}, nil
 }
 
-func (g *GrpcClient) MyStats(text string) (string, error) {
-	req := StatsRequest{
-		Text: text,
+func (g *GrpcClient) MyStats(conditions []*Condition) (*ConditionsStatsResponse, error) {
+	req := ConditionsStatsRequest{
+		Conditions: conditions,
 	}
 
-	res, err := g.client.GetStats(context.Background(), &req)
+	res, err := g.client.GetConditionsStats(context.Background(), &req)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	return res.Text, nil
+	return res, nil
 }

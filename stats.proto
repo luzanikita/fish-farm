@@ -3,13 +3,52 @@ package stats;
 option go_package = ".;stats";
 
 service StatsService {
-  rpc GetStats (StatsRequest) returns (StatsResponse) {}
+  rpc GetConditionsStats (ConditionsStatsRequest) returns (ConditionsStatsResponse) {}
+  rpc GetProductsStats (ProductsStatsRequest) returns (ProductsStatsResponse) {}
 }
 
-message StatsRequest {
-  string text = 1;
+message ConditionsStatsRequest {
+  repeated Condition conditions = 1;
 }
 
-message StatsResponse {
-  string text = 1;
+message Condition {
+  int32 metric_id = 1;
+  float value = 2;
+  int64 unix_timestamp = 3;
+}
+
+message ConditionsStatsResponse {
+  repeated ConditionsStatsResults results = 1;
+
+}
+
+message ConditionsStatsResults {
+  int32 metric_id = 1;
+  string image_url = 2;
+  float mean = 3;
+  float variance = 4;
+  float min = 5;
+  float max = 6;
+}
+
+message ProductsStatsRequest {
+  repeated Product products = 1; 
+}
+
+message Product {
+	string name = 1;
+	float quantity = 2;
+	float price = 3;
+	int64 unix_timestamp = 4;
+}
+
+message ProductsStatsResponse {
+  repeated ProductsStatsResults results = 1;
+  string image_url = 2;
+}
+
+message ProductsStatsResults {
+  int32 name = 1;
+  float count = 2;
+  float amount = 3;
 }

@@ -49,12 +49,6 @@ func init() {
 			),
 		),
 
-		beego.NSNamespace("/requirements",
-			beego.NSInclude(
-				&controllers.RequirementsController{},
-			),
-		),
-
 		beego.NSNamespace("/products",
 			beego.NSInclude(
 				&controllers.ProductsController{},
@@ -62,4 +56,6 @@ func init() {
 		),
 	)
 	beego.AddNamespace(ns)
+	beego.SetStaticPath("/images", "images")
+
 }

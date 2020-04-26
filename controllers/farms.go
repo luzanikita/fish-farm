@@ -3,13 +3,13 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"github.com/nigi4/fish-farm/models"
-	"github.com/nigi4/fish-farm/stats"
 	"strconv"
 	"strings"
 
+	"github.com/nigi4/fish-farm/models"
+	"github.com/nigi4/fish-farm/stats"
+
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/logs"
 )
 
 // FarmsController operations for Farms
@@ -172,6 +172,13 @@ func (c *FarmsController) Delete() {
 	c.ServeJSON()
 }
 
+// GetStats ...
+// @Title GetStats
+// @Description get statistics for each metric on farm
+// @Param	id		path 	string	true		"Id of farm you want to analyse"
+// @Success 200 {object} models.Farms
+// @Failure 404 id is empty
+// @router /:id/stats [get]
 func (c *FarmsController) GetStats() {
 	var fields []string
 	var sortby []string
@@ -187,27 +194,35 @@ func (c *FarmsController) GetStats() {
 	order = append(order, "asc")
 
 	l, err := models.GetAllConditions(query, fields, sortby, order, offset, limit)
-	
-	RequestStats(l)
-
-	if err != nil {
-		c.Data["json"] = err.Error()
+	if err != nil || len(l) == 0 {
+		c.Abort("404")
+		c.TplName = "views/index.tpl"
 	} else {
-		c.Data["json"] = l
+		conditions, err := RequestStats(l)
+
+		if err != nil {
+			c.Data["json"] = err.Error()
+		} else {
+			c.Data["json"] = conditions
+		}
+		c.ServeJSON()
 	}
-	c.ServeJSON()
 }
 
-func RequestStats(l []interface{}) {
+func RequestStats(l []interface{}) (*stats.ConditionsStatsResponse, error) {
 	client, _ := stats.InitGrpcConnection()
 
-	var cond []models.Conditions
+	var conditions []*stats.Condition
 	for i := range l {
-		x := l[i].(models.Conditions)
-		cond = append(cond, x)
-
-		text := x.MetricId.Name
-		out, _ := client.MyStats(text)
-		logs.Info("Output:\n%v %v", text, out)	
+		modelCond := l[i].(models.Conditions)
+		statsCond := stats.Condition{
+			MetricId: int32(modelCond.MetricId.Id),
+			Value: float32(modelCond.Value),
+			UnixTimestamp: modelCond.Date.Unix(),
+		}
+		conditions = append(conditions, &statsCond)
 	}
+	out, err := client.MyStats(conditions)
+	
+	return out, err
 }

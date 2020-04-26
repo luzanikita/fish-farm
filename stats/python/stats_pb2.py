@@ -18,23 +18,23 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='stats',
   syntax='proto3',
   serialized_options=b'Z\007.;stats',
-  serialized_pb=b'\n\x0bstats.proto\x12\x05stats\"\x1c\n\x0cStatsRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"\x1d\n\rStatsResponse\x12\x0c\n\x04text\x18\x01 \x01(\t2G\n\x0cStatsService\x12\x37\n\x08GetStats\x12\x13.stats.StatsRequest\x1a\x14.stats.StatsResponse\"\x00\x42\tZ\x07.;statsb\x06proto3'
+  serialized_pb=b'\n\x0bstats.proto\x12\x05stats\">\n\x16\x43onditionsStatsRequest\x12$\n\nconditions\x18\x01 \x03(\x0b\x32\x10.stats.Condition\"E\n\tCondition\x12\x11\n\tmetric_id\x18\x01 \x01(\x05\x12\r\n\x05value\x18\x02 \x01(\x02\x12\x16\n\x0eunix_timestamp\x18\x03 \x01(\x03\"I\n\x17\x43onditionsStatsResponse\x12.\n\x07results\x18\x01 \x03(\x0b\x32\x1d.stats.ConditionsStatsResults\"x\n\x16\x43onditionsStatsResults\x12\x11\n\tmetric_id\x18\x01 \x01(\x05\x12\x11\n\timage_url\x18\x02 \x01(\t\x12\x0c\n\x04mean\x18\x03 \x01(\x02\x12\x10\n\x08variance\x18\x04 \x01(\x02\x12\x0b\n\x03min\x18\x05 \x01(\x02\x12\x0b\n\x03max\x18\x06 \x01(\x02\"8\n\x14ProductsStatsRequest\x12 \n\x08products\x18\x01 \x03(\x0b\x32\x0e.stats.Product\"P\n\x07Product\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08quantity\x18\x02 \x01(\x02\x12\r\n\x05price\x18\x03 \x01(\x02\x12\x16\n\x0eunix_timestamp\x18\x04 \x01(\x03\"X\n\x15ProductsStatsResponse\x12,\n\x07results\x18\x01 \x03(\x0b\x32\x1b.stats.ProductsStatsResults\x12\x11\n\timage_url\x18\x02 \x01(\t\"C\n\x14ProductsStatsResults\x12\x0c\n\x04name\x18\x01 \x01(\x05\x12\r\n\x05\x63ount\x18\x02 \x01(\x02\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x02\x32\xb6\x01\n\x0cStatsService\x12U\n\x12GetConditionsStats\x12\x1d.stats.ConditionsStatsRequest\x1a\x1e.stats.ConditionsStatsResponse\"\x00\x12O\n\x10GetProductsStats\x12\x1b.stats.ProductsStatsRequest\x1a\x1c.stats.ProductsStatsResponse\"\x00\x42\tZ\x07.;statsb\x06proto3'
 )
 
 
 
 
-_STATSREQUEST = _descriptor.Descriptor(
-  name='StatsRequest',
-  full_name='stats.StatsRequest',
+_CONDITIONSSTATSREQUEST = _descriptor.Descriptor(
+  name='ConditionsStatsRequest',
+  full_name='stats.ConditionsStatsRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='text', full_name='stats.StatsRequest.text', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      name='conditions', full_name='stats.ConditionsStatsRequest.conditions', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -51,20 +51,252 @@ _STATSREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=22,
-  serialized_end=50,
+  serialized_end=84,
 )
 
 
-_STATSRESPONSE = _descriptor.Descriptor(
-  name='StatsResponse',
-  full_name='stats.StatsResponse',
+_CONDITION = _descriptor.Descriptor(
+  name='Condition',
+  full_name='stats.Condition',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='text', full_name='stats.StatsResponse.text', index=0,
+      name='metric_id', full_name='stats.Condition.metric_id', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='stats.Condition.value', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='unix_timestamp', full_name='stats.Condition.unix_timestamp', index=2,
+      number=3, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=86,
+  serialized_end=155,
+)
+
+
+_CONDITIONSSTATSRESPONSE = _descriptor.Descriptor(
+  name='ConditionsStatsResponse',
+  full_name='stats.ConditionsStatsResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='results', full_name='stats.ConditionsStatsResponse.results', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=157,
+  serialized_end=230,
+)
+
+
+_CONDITIONSSTATSRESULTS = _descriptor.Descriptor(
+  name='ConditionsStatsResults',
+  full_name='stats.ConditionsStatsResults',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='metric_id', full_name='stats.ConditionsStatsResults.metric_id', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='image_url', full_name='stats.ConditionsStatsResults.image_url', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mean', full_name='stats.ConditionsStatsResults.mean', index=2,
+      number=3, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='variance', full_name='stats.ConditionsStatsResults.variance', index=3,
+      number=4, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='min', full_name='stats.ConditionsStatsResults.min', index=4,
+      number=5, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='max', full_name='stats.ConditionsStatsResults.max', index=5,
+      number=6, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=232,
+  serialized_end=352,
+)
+
+
+_PRODUCTSSTATSREQUEST = _descriptor.Descriptor(
+  name='ProductsStatsRequest',
+  full_name='stats.ProductsStatsRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='products', full_name='stats.ProductsStatsRequest.products', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=354,
+  serialized_end=410,
+)
+
+
+_PRODUCT = _descriptor.Descriptor(
+  name='Product',
+  full_name='stats.Product',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='stats.Product.name', index=0,
       number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='quantity', full_name='stats.Product.quantity', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='price', full_name='stats.Product.price', index=2,
+      number=3, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='unix_timestamp', full_name='stats.Product.unix_timestamp', index=3,
+      number=4, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=412,
+  serialized_end=492,
+)
+
+
+_PRODUCTSSTATSRESPONSE = _descriptor.Descriptor(
+  name='ProductsStatsResponse',
+  full_name='stats.ProductsStatsResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='results', full_name='stats.ProductsStatsResponse.results', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='image_url', full_name='stats.ProductsStatsResponse.image_url', index=1,
+      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -81,27 +313,124 @@ _STATSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=52,
-  serialized_end=81,
+  serialized_start=494,
+  serialized_end=582,
 )
 
-DESCRIPTOR.message_types_by_name['StatsRequest'] = _STATSREQUEST
-DESCRIPTOR.message_types_by_name['StatsResponse'] = _STATSRESPONSE
+
+_PRODUCTSSTATSRESULTS = _descriptor.Descriptor(
+  name='ProductsStatsResults',
+  full_name='stats.ProductsStatsResults',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='stats.ProductsStatsResults.name', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='count', full_name='stats.ProductsStatsResults.count', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='amount', full_name='stats.ProductsStatsResults.amount', index=2,
+      number=3, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=584,
+  serialized_end=651,
+)
+
+_CONDITIONSSTATSREQUEST.fields_by_name['conditions'].message_type = _CONDITION
+_CONDITIONSSTATSRESPONSE.fields_by_name['results'].message_type = _CONDITIONSSTATSRESULTS
+_PRODUCTSSTATSREQUEST.fields_by_name['products'].message_type = _PRODUCT
+_PRODUCTSSTATSRESPONSE.fields_by_name['results'].message_type = _PRODUCTSSTATSRESULTS
+DESCRIPTOR.message_types_by_name['ConditionsStatsRequest'] = _CONDITIONSSTATSREQUEST
+DESCRIPTOR.message_types_by_name['Condition'] = _CONDITION
+DESCRIPTOR.message_types_by_name['ConditionsStatsResponse'] = _CONDITIONSSTATSRESPONSE
+DESCRIPTOR.message_types_by_name['ConditionsStatsResults'] = _CONDITIONSSTATSRESULTS
+DESCRIPTOR.message_types_by_name['ProductsStatsRequest'] = _PRODUCTSSTATSREQUEST
+DESCRIPTOR.message_types_by_name['Product'] = _PRODUCT
+DESCRIPTOR.message_types_by_name['ProductsStatsResponse'] = _PRODUCTSSTATSRESPONSE
+DESCRIPTOR.message_types_by_name['ProductsStatsResults'] = _PRODUCTSSTATSRESULTS
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-StatsRequest = _reflection.GeneratedProtocolMessageType('StatsRequest', (_message.Message,), {
-  'DESCRIPTOR' : _STATSREQUEST,
+ConditionsStatsRequest = _reflection.GeneratedProtocolMessageType('ConditionsStatsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CONDITIONSSTATSREQUEST,
   '__module__' : 'stats_pb2'
-  # @@protoc_insertion_point(class_scope:stats.StatsRequest)
+  # @@protoc_insertion_point(class_scope:stats.ConditionsStatsRequest)
   })
-_sym_db.RegisterMessage(StatsRequest)
+_sym_db.RegisterMessage(ConditionsStatsRequest)
 
-StatsResponse = _reflection.GeneratedProtocolMessageType('StatsResponse', (_message.Message,), {
-  'DESCRIPTOR' : _STATSRESPONSE,
+Condition = _reflection.GeneratedProtocolMessageType('Condition', (_message.Message,), {
+  'DESCRIPTOR' : _CONDITION,
   '__module__' : 'stats_pb2'
-  # @@protoc_insertion_point(class_scope:stats.StatsResponse)
+  # @@protoc_insertion_point(class_scope:stats.Condition)
   })
-_sym_db.RegisterMessage(StatsResponse)
+_sym_db.RegisterMessage(Condition)
+
+ConditionsStatsResponse = _reflection.GeneratedProtocolMessageType('ConditionsStatsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _CONDITIONSSTATSRESPONSE,
+  '__module__' : 'stats_pb2'
+  # @@protoc_insertion_point(class_scope:stats.ConditionsStatsResponse)
+  })
+_sym_db.RegisterMessage(ConditionsStatsResponse)
+
+ConditionsStatsResults = _reflection.GeneratedProtocolMessageType('ConditionsStatsResults', (_message.Message,), {
+  'DESCRIPTOR' : _CONDITIONSSTATSRESULTS,
+  '__module__' : 'stats_pb2'
+  # @@protoc_insertion_point(class_scope:stats.ConditionsStatsResults)
+  })
+_sym_db.RegisterMessage(ConditionsStatsResults)
+
+ProductsStatsRequest = _reflection.GeneratedProtocolMessageType('ProductsStatsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _PRODUCTSSTATSREQUEST,
+  '__module__' : 'stats_pb2'
+  # @@protoc_insertion_point(class_scope:stats.ProductsStatsRequest)
+  })
+_sym_db.RegisterMessage(ProductsStatsRequest)
+
+Product = _reflection.GeneratedProtocolMessageType('Product', (_message.Message,), {
+  'DESCRIPTOR' : _PRODUCT,
+  '__module__' : 'stats_pb2'
+  # @@protoc_insertion_point(class_scope:stats.Product)
+  })
+_sym_db.RegisterMessage(Product)
+
+ProductsStatsResponse = _reflection.GeneratedProtocolMessageType('ProductsStatsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _PRODUCTSSTATSRESPONSE,
+  '__module__' : 'stats_pb2'
+  # @@protoc_insertion_point(class_scope:stats.ProductsStatsResponse)
+  })
+_sym_db.RegisterMessage(ProductsStatsResponse)
+
+ProductsStatsResults = _reflection.GeneratedProtocolMessageType('ProductsStatsResults', (_message.Message,), {
+  'DESCRIPTOR' : _PRODUCTSSTATSRESULTS,
+  '__module__' : 'stats_pb2'
+  # @@protoc_insertion_point(class_scope:stats.ProductsStatsResults)
+  })
+_sym_db.RegisterMessage(ProductsStatsResults)
 
 
 DESCRIPTOR._options = None
@@ -112,16 +441,25 @@ _STATSSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=83,
-  serialized_end=154,
+  serialized_start=654,
+  serialized_end=836,
   methods=[
   _descriptor.MethodDescriptor(
-    name='GetStats',
-    full_name='stats.StatsService.GetStats',
+    name='GetConditionsStats',
+    full_name='stats.StatsService.GetConditionsStats',
     index=0,
     containing_service=None,
-    input_type=_STATSREQUEST,
-    output_type=_STATSRESPONSE,
+    input_type=_CONDITIONSSTATSREQUEST,
+    output_type=_CONDITIONSSTATSRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetProductsStats',
+    full_name='stats.StatsService.GetProductsStats',
+    index=1,
+    containing_service=None,
+    input_type=_PRODUCTSSTATSREQUEST,
+    output_type=_PRODUCTSSTATSRESPONSE,
     serialized_options=None,
   ),
 ])
