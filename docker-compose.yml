@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: 'base.Dockerfile'
+    ports:
+      - '8080:8080'
+    volumes:
+    - 'images:/go/src/github.com/nigi4/fish-farm/images'
+    network_mode: "host"
+
+  stats:
+    build:
+      context: .
+      dockerfile: 'python.Dockerfile'
+    ports:
+      - '6000:6000'
+    volumes:
+    - 'images:/app/images'
+
+volumes:
+  images:
+    driver: local 
