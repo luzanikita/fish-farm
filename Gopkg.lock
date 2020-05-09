@@ -2,7 +2,7 @@
 
 
 [[projects]]
-  digest = "1:2af97239e7c8b9e91668a9db6b5fd05b112c71da76e08b6288083a55f4745600"
+  digest = "1:123688dc18b79ba3de779ba0c7d4ea840bdc53a08589618cdb382021926b62a8"
   name = "github.com/astaxie/beego"
   packages = [
     ".",
@@ -12,6 +12,7 @@
     "grace",
     "logs",
     "orm",
+    "plugins/cors",
     "session",
     "toolbox",
     "utils",
@@ -263,6 +264,7 @@
     "github.com/astaxie/beego",
     "github.com/astaxie/beego/context/param",
     "github.com/astaxie/beego/orm",
+    "github.com/astaxie/beego/plugins/cors",
     "github.com/golang/protobuf/proto",
     "github.com/lib/pq",
     "github.com/smartystreets/goconvey/convey",
