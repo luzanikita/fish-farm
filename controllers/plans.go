@@ -58,6 +58,7 @@ func (c *PlansController) GetOne() {
 	id, _ := strconv.Atoi(idStr)
 	v, err := models.GetPlansById(id)
 	if err != nil {
+		c.Ctx.Output.SetStatus(404)
 		c.Data["json"] = err.Error()
 	} else {
 		c.Data["json"] = v
@@ -144,6 +145,7 @@ func (c *PlansController) Put() {
 		if err := models.UpdatePlansById(&v); err == nil {
 			c.Data["json"] = "OK"
 		} else {
+			c.Ctx.Output.SetStatus(404)
 			c.Data["json"] = err.Error()
 		}
 	} else {
@@ -165,6 +167,7 @@ func (c *PlansController) Delete() {
 	if err := models.DeletePlans(id); err == nil {
 		c.Data["json"] = "OK"
 	} else {
+		c.Ctx.Output.SetStatus(404)
 		c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
