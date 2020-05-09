@@ -4,8 +4,8 @@ import (
 	_ "github.com/nigi4/fish-farm/routers"
 
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/plugins/cors"
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/plugins/cors"
 	_ "github.com/lib/pq"
 )
 
@@ -17,11 +17,10 @@ func main() {
 	}
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
 		AllowAllOrigins:  true,
-		AllowMethods:     []string{"GET", "POST", "DELETE", "PUT", "PATCH"},
-		AllowHeaders:     []string{"Origin", "content-type", "Access-Control-Allow-Origin"},
-		ExposeHeaders:    []string{"Content-Length", "Access-Control-Allow-Origin"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Headers", "Content-Type"},
+		ExposeHeaders:    []string{"Content-Length", "Access-Control-Allow-Origin", "Access-Control-Allow-Headers", "Content-Type"},
 		AllowCredentials: true,
 	}))
 	beego.Run()
 }
-
