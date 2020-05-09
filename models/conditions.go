@@ -11,7 +11,7 @@ import (
 )
 
 type Conditions struct {
-	Id       int       `orm:"column(id);pk"`
+	Id       int       `orm:"column(id);auto"`
 	FarmId   *Farms    `orm:"column(farm_id);rel(fk)"`
 	MetricId *Metrics  `orm:"column(metric_id);rel(fk)"`
 	Value    float64   `orm:"column(value);null"`

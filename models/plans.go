@@ -10,7 +10,7 @@ import (
 )
 
 type Plans struct {
-	Id          int    `orm:"column(id);pk"`
+	Id          int    `orm:"column(id);auto"`
 	UserId      *Users `orm:"column(user_id);rel(fk)"`
 	Name        string `orm:"column(name)"`
 	Description string `orm:"column(description);null"`

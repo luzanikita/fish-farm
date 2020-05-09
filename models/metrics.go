@@ -10,7 +10,7 @@ import (
 )
 
 type Metrics struct {
-	Id          int    `orm:"column(id);pk"`
+	Id          int    `orm:"column(id);auto"`
 	Name        string `orm:"column(name)"`
 	Description string `orm:"column(description);null"`
 }

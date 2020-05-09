@@ -11,7 +11,7 @@ import (
 )
 
 type Products struct {
-	Id          int       `orm:"column(id);pk"`
+	Id          int       `orm:"column(id);auto"`
 	FarmId      *Farms    `orm:"column(farm_id);rel(fk)"`
 	PlanId      *Plans    `orm:"column(plan_id);rel(fk)"`
 	Name        string    `orm:"column(name)"`
