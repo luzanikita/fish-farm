@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego"
 )
 
@@ -149,7 +150,9 @@ func (c *PlansController) Put() {
 			c.Data["json"] = err.Error()
 		}
 	} else {
+		c.Ctx.Output.SetStatus(400)
 		c.Data["json"] = err.Error()
+		logs.Error(err)
 	}
 	c.ServeJSON()
 }
