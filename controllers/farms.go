@@ -60,6 +60,7 @@ func (c *FarmsController) GetOne() {
 	id, _ := strconv.Atoi(idStr)
 	v, err := models.GetFarmsById(id)
 	if err != nil {
+		c.Ctx.Output.SetStatus(404)
 		c.Data["json"] = err.Error()
 	} else {
 		c.Data["json"] = v
@@ -146,6 +147,7 @@ func (c *FarmsController) Put() {
 		if err := models.UpdateFarmsById(&v); err == nil {
 			c.Data["json"] = "OK"
 		} else {
+			c.Ctx.Output.SetStatus(404)
 			c.Data["json"] = err.Error()
 		}
 	} else {
@@ -216,13 +218,13 @@ func RequestStats(l []interface{}) (*stats.ConditionsStatsResponse, error) {
 	for i := range l {
 		modelCond := l[i].(models.Conditions)
 		statsCond := stats.Condition{
-			MetricId: int32(modelCond.MetricId.Id),
-			Value: float32(modelCond.Value),
+			MetricId:      int32(modelCond.MetricId.Id),
+			Value:         float32(modelCond.Value),
 			UnixTimestamp: modelCond.Date.Unix(),
 		}
 		conditions = append(conditions, &statsCond)
 	}
 	out, err := client.MyStats(conditions)
-	
+
 	return out, err
 }

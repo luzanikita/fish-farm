@@ -3,9 +3,10 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"github.com/nigi4/fish-farm/models"
 	"strconv"
 	"strings"
+
+	"github.com/nigi4/fish-farm/models"
 
 	"github.com/astaxie/beego"
 )
@@ -58,6 +59,7 @@ func (c *MetricsController) GetOne() {
 	id, _ := strconv.Atoi(idStr)
 	v, err := models.GetMetricsById(id)
 	if err != nil {
+		c.Ctx.Output.SetStatus(404)
 		c.Data["json"] = err.Error()
 	} else {
 		c.Data["json"] = v
@@ -144,6 +146,7 @@ func (c *MetricsController) Put() {
 		if err := models.UpdateMetricsById(&v); err == nil {
 			c.Data["json"] = "OK"
 		} else {
+			c.Ctx.Output.SetStatus(404)
 			c.Data["json"] = err.Error()
 		}
 	} else {

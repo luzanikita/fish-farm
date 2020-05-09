@@ -58,6 +58,7 @@ func (c *UsersController) GetOne() {
 	id, _ := strconv.Atoi(idStr)
 	v, err := models.GetUsersById(id)
 	if err != nil {
+		c.Ctx.Output.SetStatus(404)
 		c.Data["json"] = err.Error()
 	} else {
 		c.Data["json"] = v
@@ -144,6 +145,7 @@ func (c *UsersController) Put() {
 		if err := models.UpdateUsersById(&v); err == nil {
 			c.Data["json"] = "OK"
 		} else {
+			c.Ctx.Output.SetStatus(404)
 			c.Data["json"] = err.Error()
 		}
 	} else {
