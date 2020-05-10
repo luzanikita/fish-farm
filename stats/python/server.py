@@ -12,6 +12,7 @@ from stats_pb2_grpc import (
 	grpc
 )
 from processor import ConditionsStatsProcessor
+from iot import post_condition
 
 
 PORT = 6000
@@ -41,7 +42,8 @@ def serve(port):
 	print("Listening on port {}..".format(port))
 	try:
 		while True:
-			time.sleep(10000)
+			post_condition()
+			time.sleep(60)
 	except KeyboardInterrupt:
 		server.stop(0)
 

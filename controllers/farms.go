@@ -85,7 +85,7 @@ func (c *FarmsController) GetAll() {
 	var sortby []string
 	var order []string
 	var query = make(map[string]string)
-	var limit int64 = 10
+	var limit int64 = -1
 	var offset int64
 
 	// fields: col1,col2,entity.col3
@@ -186,7 +186,7 @@ func (c *FarmsController) GetStats() {
 	var sortby []string
 	var order []string
 	var query = make(map[string]string)
-	var limit int64 = 10
+	var limit int64 = -1
 	var offset int64
 
 	idStr := c.Ctx.Input.Param(":id")

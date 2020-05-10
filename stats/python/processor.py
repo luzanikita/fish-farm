@@ -17,7 +17,7 @@ class ConditionsStatsProcessor():
 		df = self.conditions_to_df(conditions)
 		stats_resutls = []
 		for metric_id in df["metric_id"].unique():
-			series = self.prepare_series(df, metric_id)
+			series = self.prepare_series(df, metric_id, "1Min", TimeSeriesProcessor.mean_chrono_smoothing, t=60)
 
 			stats = ConditionsStatsResults()
 			self.calculate_stats(series, stats)
@@ -50,11 +50,11 @@ class ConditionsStatsProcessor():
 
 		return df
 
-	def prepare_series(self, df, metric_id, time_interval="D", smoothing_f=None, **kwargs):
+	def prepare_series(self, df, metric_id, time_interval="1Min", smoothing_f=None, **kwargs):
 		series = df \
 			.loc[df["metric_id"] == metric_id, "value"] \
 			.resample(time_interval) \
-			.mean()
+			.mean()[-120:]
 		
 		series = series.fillna(series.mean())
 		if smoothing_f is not None:

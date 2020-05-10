@@ -3,12 +3,13 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"github.com/nigi4/fish-farm/models"
 	"strconv"
 	"strings"
 
-	"github.com/astaxie/beego/logs"
+	"github.com/nigi4/fish-farm/models"
+
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
 )
 
 // PlansController operations for Plans
@@ -84,7 +85,7 @@ func (c *PlansController) GetAll() {
 	var sortby []string
 	var order []string
 	var query = make(map[string]string)
-	var limit int64 = 10
+	var limit int64 = -1
 	var offset int64
 
 	// fields: col1,col2,entity.col3
