@@ -3,7 +3,7 @@ from random import random
 from datetime import datetime
 
 
-URL = 'http://localhost:8080/v1/conditions/'
+URL = 'http://172.17.0.1:8080/v1/conditions/'
 FARM_ID = 2
 METRIC_ID = 2
 
@@ -17,9 +17,9 @@ def post_condition(url=URL, farm_id=FARM_ID, metric_id=METRIC_ID):
         str(farm_id), str(metric_id), str(value), timestamp
     )
 
-    x = requests.post(url, data=myobj)
-
-    print(x.text)
+    with requests.Session() as session:
+        x = session.post(url, data=myobj)
+        print(x.text)
 
 
 if __name__ == '__main__':

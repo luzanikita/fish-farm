@@ -40,10 +40,14 @@ func (c *PlansController) Post() {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
+			c.Ctx.Output.SetStatus(400)
 			c.Data["json"] = err.Error()
+			logs.Error(err)
 		}
 	} else {
+		c.Ctx.Output.SetStatus(400)
 		c.Data["json"] = err.Error()
+		logs.Error(err)
 	}
 	c.ServeJSON()
 }

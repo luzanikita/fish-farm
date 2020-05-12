@@ -54,7 +54,7 @@ class ConditionsStatsProcessor():
 		series = df \
 			.loc[df["metric_id"] == metric_id, "value"] \
 			.resample(time_interval) \
-			.mean()[-120:]
+			.mean()[-360:]
 		
 		series = series.fillna(series.mean())
 		if smoothing_f is not None:

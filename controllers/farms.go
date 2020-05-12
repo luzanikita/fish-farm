@@ -10,6 +10,7 @@ import (
 	"github.com/nigi4/fish-farm/stats"
 
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
 )
 
 // FarmsController operations for Farms
@@ -40,10 +41,14 @@ func (c *FarmsController) Post() {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
+			c.Ctx.Output.SetStatus(400)
 			c.Data["json"] = err.Error()
+			logs.Error(err)
 		}
 	} else {
+		c.Ctx.Output.SetStatus(400)
 		c.Data["json"] = err.Error()
+		logs.Error(err)
 	}
 	c.ServeJSON()
 }
@@ -151,7 +156,9 @@ func (c *FarmsController) Put() {
 			c.Data["json"] = err.Error()
 		}
 	} else {
+		c.Ctx.Output.SetStatus(400)
 		c.Data["json"] = err.Error()
+		logs.Error(err)
 	}
 	c.ServeJSON()
 }
@@ -169,6 +176,7 @@ func (c *FarmsController) Delete() {
 	if err := models.DeleteFarms(id); err == nil {
 		c.Data["json"] = "OK"
 	} else {
+		c.Ctx.Output.SetStatus(404)
 		c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()

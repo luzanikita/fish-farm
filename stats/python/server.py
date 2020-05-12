@@ -42,8 +42,8 @@ def serve(port):
 	print("Listening on port {}..".format(port))
 	try:
 		while True:
-			post_condition()
 			time.sleep(60)
+			# post_condition()
 	except KeyboardInterrupt:
 		server.stop(0)
 
