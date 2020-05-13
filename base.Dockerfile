@@ -11,10 +11,13 @@ RUN go get github.com/nigi4/fish-farm
 
 WORKDIR /go/src/github.com/nigi4/fish-farm
 
-COPY . .
+COPY *.lock ./
+COPY *.toml ./
 
 RUN go get -u github.com/golang/dep/cmd/dep
 RUN dep ensure 
+
+COPY . .
 
 RUN rm -rf bin
 RUN go build -o bin/fish-farm .
