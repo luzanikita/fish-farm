@@ -43,7 +43,7 @@ def serve(port):
 	try:
 		while True:
 			time.sleep(60)
-			# post_condition()
+			post_condition()
 	except KeyboardInterrupt:
 		server.stop(0)
 
