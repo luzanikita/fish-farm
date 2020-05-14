@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-
+	"crypto/md5"
+	"encoding/hex"
+	
 	"github.com/astaxie/beego/orm"
 )
 
@@ -32,6 +34,11 @@ func init() {
 }
 
 func AddUsers(m *Users) (id int64, err error) {
+	data := []byte(m.Password)
+	hash := md5.Sum(data)
+	password_hash := hex.EncodeToString(hash[:])
+	m.Password = password_hash
+
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
@@ -123,6 +130,11 @@ func GetAllUsers(query map[string]string, fields []string, sortby []string, orde
 }
 
 func UpdateUsersById(m *Users) (err error) {
+	data := []byte(m.Password)
+	hash := md5.Sum(data)
+	password_hash := hex.EncodeToString(hash[:])
+	m.Password = password_hash
+
 	o := orm.NewOrm()
 	v := Users{Id: m.Id}
 
