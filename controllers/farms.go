@@ -208,12 +208,32 @@ func (c *FarmsController) GetStats() {
 		c.Abort("404")
 		c.TplName = "views/index.tpl"
 	} else {
-		conditions, err := RequestStats(l)
+		results, err := RequestStats(l)
 
 		if err != nil {
 			c.Data["json"] = err.Error()
 		} else {
-			c.Data["json"] = conditions
+			var outResults []*StatsResults
+			if results != nil {
+				for i := range results.Results {
+					o := results.Results[i]
+					metric, _ := models.GetMetricsById(int(o.MetricId))
+					out := StatsResults {
+						MetricId:          int32(metric.Id),
+						MetricName:        metric.Name,
+						MetricDescription: metric.Description,
+						ImageUrl:          o.ImageUrl,
+						Mean:              o.Mean,
+						Variance:          o.Variance,
+						Min:               o.Min,
+						Max:               o.Max,
+					}
+
+					outResults = append(outResults, &out)
+				}
+			}
+		
+			c.Data["json"] = outResults
 		}
 		c.ServeJSON()
 	}
@@ -235,4 +255,15 @@ func RequestStats(l []interface{}) (*stats.ConditionsStatsResponse, error) {
 	out, err := client.MyStats(conditions)
 
 	return out, err
+}
+
+type StatsResults struct {
+	MetricId          int32
+	MetricName        string
+	MetricDescription string
+	ImageUrl          string
+	Mean              float32
+	Variance          float32
+	Min               float32
+	Max               float32
 }
