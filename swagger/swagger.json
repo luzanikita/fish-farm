@@ -390,6 +390,49 @@
                 }
             }
         },
+        "/login/": {
+            "get": {
+                "tags": [
+                    "login"
+                ],
+                "description": "get UserId from Session",
+                "operationId": "LoginController.Get",
+                "responses": {
+                    "200": {
+                        "description": "{int}"
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "login"
+                ],
+                "description": "Login",
+                "operationId": "LoginController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Credits content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Credits"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.Users"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
         "/metrics/": {
             "get": {
                 "tags": [
@@ -1105,6 +1148,18 @@
                 "Value": {
                     "type": "number",
                     "format": "double"
+                }
+            }
+        },
+        "models.Credits": {
+            "title": "Credits",
+            "type": "object",
+            "properties": {
+                "Email": {
+                    "type": "string"
+                },
+                "Password": {
+                    "type": "string"
                 }
             }
         },

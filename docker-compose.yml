@@ -33,8 +33,8 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - 'images:/front/src/images'
-      - './fm:/front'
+      - 'images:/fm/src/images'
+      - './fm:/fm'
       - '/front/node_modules'
     environment:
       - CHOKIDAR_USEPOLLING=true

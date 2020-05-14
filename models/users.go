@@ -18,6 +18,11 @@ type Users struct {
 	Phone      string `orm:"column(phone);null"`
 }
 
+type Credits struct {
+	Email      string
+	Password   string
+}
+
 func (t *Users) TableName() string {
 	return "users"
 }

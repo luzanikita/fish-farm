@@ -263,8 +263,10 @@
   input-imports = [
     "github.com/astaxie/beego",
     "github.com/astaxie/beego/context/param",
+    "github.com/astaxie/beego/logs",
     "github.com/astaxie/beego/orm",
     "github.com/astaxie/beego/plugins/cors",
+    "github.com/astaxie/beego/session",
     "github.com/golang/protobuf/proto",
     "github.com/lib/pq",
     "github.com/smartystreets/goconvey/convey",
