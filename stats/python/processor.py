@@ -54,7 +54,7 @@ class ConditionsStatsProcessor():
 		series = df \
 			.loc[df["metric_id"] == metric_id, "value"] \
 			.resample(time_interval) \
-			.mean()[-360:]
+			.mean()[-390:]
 		
 		series = series.fillna(series.mean())
 		if smoothing_f is not None:
@@ -105,4 +105,4 @@ class TimeSeriesProcessor():
 			numerator = sum([series[j] for j in a])
 			seriess[i] = (series[int(i - t/2)]/2 + numerator + series[int(i + t/2)]/2) / t
 			
-		return seriess
+		return seriess[anomaly_ix[0]:]
