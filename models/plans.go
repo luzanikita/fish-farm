@@ -34,6 +34,8 @@ func GetPlansById(id int) (v *Plans, err error) {
 	o := orm.NewOrm()
 	v = &Plans{Id: id}
 	if err = o.Read(v); err == nil {
+		user, _ := GetUsersById(v.UserId.Id)
+		v.UserId = user
 		return v, nil
 	}
 	return nil, err
@@ -42,7 +44,7 @@ func GetPlansById(id int) (v *Plans, err error) {
 func GetAllPlans(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Plans))
+	qs := o.QueryTable(new(Plans)).RelatedSel("UserId")
 
 	for k, v := range query {
 
