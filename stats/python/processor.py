@@ -73,7 +73,7 @@ class ConditionsStatsProcessor():
 		plt.plot(series)
 
 		save_path = os.path.join(save_path, f"metric_{metric_id}.png")
-		plt.savefig(save_path)
+		plt.savefig("fm/src/" + save_path)
 
 		return save_path
 

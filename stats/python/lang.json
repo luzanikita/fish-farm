@@ -1,0 +1,40 @@
+{
+    "en": {
+        "choose_lang": "Choose language",
+        "undefined_lang": "Undefined language",
+        "enter_email": "Enter email",
+        "enter_password": "Enter password",
+        "welcome": "Welcome,",
+        "wrong_data": "Wrong input data",
+        "choose_farm": "Choose farm id",
+        "undefined_farm": "Undefined farm id",
+        "choose_action": "Choose action",
+        "action_add": "Add metric",
+        "action_remove": "Remove metric",
+        "choose_metric": "Choose metric id",
+        "undefined_metric": "Undefined metric id",
+        "status_updated": "Config updated",
+        "current_config": "Current config",
+        "status_empty": "Empty",
+        "quit": "End of the program"
+    },
+    "ua": {
+        "choose_lang": "Оберіть мову",
+        "undefined_lang": "Невідома мова",
+        "enter_email": "Введіть пошту",
+        "enter_password": "Введіть пароль",
+        "welcome": "Вітаємо,",
+        "wrong_data": "Не вірна введена інформація",
+        "choose_farm": "Оберіть номер ферми",
+        "undefined_farm": "Невідомий номер ферми",
+        "choose_action": "Оберіть дію",
+        "action_add": "Додати показник",
+        "action_remove": "Видалити показник",
+        "choose_metric": "Оберіть номер показника",
+        "undefined_metric": "Невідомий номер показника",
+        "status_updated": "Конфігурація оновлена",
+        "current_config": "Поточна конфігурація",
+        "status_empty": "Пусто",
+        "quit": "Вихід з програми"
+    }
+}
