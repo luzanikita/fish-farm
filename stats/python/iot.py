@@ -6,8 +6,6 @@ from getpass import getpass
 from threading import Thread
 from datetime import datetime
 
-# TODO:
-    # Post new conditions in parallel mode
 
 class IotManager:
 
@@ -67,8 +65,8 @@ class IotManager:
 
     def login(self):
         while True:
-            email = "voronm96@gmail.com" # input(f'{self.lang_dict["enter_email"]}\n> ')
-            password = "123456" # getpass(f'{self.lang_dict["enter_password"]}\n> ')
+            email = input(f'{self.lang_dict["enter_email"]}\n> ')
+            password = getpass(f'{self.lang_dict["enter_password"]}\n> ')
             request_body = json.dumps({
                 "Email": email,
                 "Password": password
